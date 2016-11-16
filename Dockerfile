@@ -7,10 +7,6 @@ RUN apt-get update -qq && apt-get install -y \
   libpq-dev \
   nodejs
 
-RUN locale-gen en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LANGUAGE en_US:en
-ENV LC_ALL en_US.UTF-8
-
+ENV LANG C.UTF-8
 RUN mkdir -p /app
 WORKDIR /app
