@@ -6,7 +6,8 @@ RUN apt-get update -qq && apt-get install -y \
   imagemagick \
   libpq-dev \
   nodejs
-  
+
 ENV LANG C.UTF-8
+
 RUN mkdir -p /app
 WORKDIR /app
