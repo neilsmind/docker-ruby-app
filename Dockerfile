@@ -1,12 +1,17 @@
 FROM neilsmind/ruby-app:2.3
 
-# Copy over Gemfile and Gemfile.lock so that we don't unnecessarily
-# `bundle install` on every file change
-ONBUILD COPY Gemfile ./
-ONBUILD COPY Gemfile.lock ./
+# throw errors if Gemfile has been modified since Gemfile.lock
+RUN bundle config --global frozen 1
 
-# Install necessary gems
+RUN mkdir -p /app
+RUN mkdir -p /vendor
+WORKDIR /app
+
+ONBUILD COPY .ruby-version /app/
+ONBUILD COPY Gemfile /app/
+ONBUILD COPY Gemfile.lock /app/
+ONBUILD COPY vendor/cache /app/vendor/
+
 ONBUILD RUN bundle install
 
-# Copy the rest of the application over
-ONBUILD COPY . .
+ONBUILD COPY . /app
